@@ -32,4 +32,32 @@ header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
   }
 
-  ?>
+  else if($postjson['aksi']=='login'){
+   $query = mysqli_query($mysqli, "SELECT * FROM users 
+   WHERE username = '$postjson[username]' 
+   AND password = '$postjson[password]' 
+   ");
+
+   $check = mysqli_num_rows($query);
+   if($check > 0) {
+      $data = mysqli_fetch_array($query);
+      $datauser = array(
+         'id' => $data['id'],
+         'username' => $data['username'],
+         'password' => $data['password'],
+      );
+
+      if($data['status'] == 'y'){
+         $result = json_encode(array('success'=>true, 'result'=>$datauser));
+      }
+      else {
+         $result = json_encode(array('success'=>false, 'msg'=>'Account Inactive'));
+      }
+   }
+   else {
+      $result = json_encode(array('success'=>false, 'msg'=>'Unregister Account'));
+   }
+
+   echo $result;
+
+}

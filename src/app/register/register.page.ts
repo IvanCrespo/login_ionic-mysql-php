@@ -28,24 +28,53 @@ export class RegisterPage implements OnInit {
   }
 
   async prosesRegister() {
-    let body = {
-      username: this.username,
-      password: this.password,
-      aksi: 'register'
-    };
-    this.postPvdr.postData(body, 'proses-api.php').subscribe(async data => {
-      if(data.success) {
-        this.router.navigate(['/login']);
-        const toast = await this.toastCtrl.create({
-          message: "",
-          duration: 2000
-        });
-        toast.present();
-      }
-      else {
 
-      }
-    })
+    if(this.username == ""){
+      const toast = await this.toastCtrl.create({
+        message: 'Username is required',
+        duration: 2000
+      });
+      toast.present();
+    }
+    else if(this.password == ""){
+      const toast = await this.toastCtrl.create({
+        message: 'Password is required',
+        duration: 2000
+      });
+      toast.present();
+    }
+    else if(this.password != this.confirm_password){
+      const toast = await this.toastCtrl.create({
+        message: 'Invalid Password',
+        duration: 2000
+      });
+      toast.present();
+    }
+    else{
+      let body = {
+        username: this.username,
+        password: this.password,
+        aksi: 'register'
+      };
+      this.postPvdr.postData(body, 'proses-api.php').subscribe(async data => {
+        var alertmsg = data.msg;
+        if(data.success) {
+          this.router.navigate(['/login']);
+          const toast = await this.toastCtrl.create({
+            message: 'Register Successful',
+            duration: 2000
+          });
+          toast.present();
+        }
+        else {
+          const toast = await this.toastCtrl.create({
+            message: alertmsg,
+            duration: 2000
+          });
+          toast.present();
+        }
+      });
+    }
   }
 
 }

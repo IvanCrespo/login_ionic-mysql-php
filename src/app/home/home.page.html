@@ -1,20 +1,19 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            Hola! {{username}}
+        </ion-title>
+        <ion-buttons slot="primary">
+            <ion-button color="tertiary" (click)="Logout()">
+                <ion-icon slot="end" name="log-out"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <div class="ion-padding">
+        Login Inicio {{ password }}
+    </div>
+    <span>El ID del Usuario es: <b> {{id}} </b></span>
 </ion-content>
